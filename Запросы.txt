@@ -1,0 +1,18 @@
+1. Получение информации о сумме товаров заказанных под каждого клиента (Наименование клиента, сумма)
+ 
+SELECT c.name AS Клиент, SUM(oi.kolvo * p.price) AS Сумма_заказов 
+FROM client c 
+JOIN orders o ON o.client_id = c.id JOIN order_items oi ON oi.order_id = o.id 
+JOIN Product p ON p.id = oi.product_id 
+GROUP BY c.name;
+
+2. Найти количество дочерних элементов первого уровня вложенности для категорий номенклатуры.
+
+SELECT 
+c.name AS Категория,
+COUNT(sc.id) AS Количество_дочерних
+FROM category c
+LEFT JOIN category sc ON sc.parent_id = c.id
+GROUP BY c.id, c.name
+ORDER BY c.id;
+
